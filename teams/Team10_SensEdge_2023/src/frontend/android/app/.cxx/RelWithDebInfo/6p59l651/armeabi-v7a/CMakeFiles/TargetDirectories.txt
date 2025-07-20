@@ -1,0 +1,2 @@
+C:/Projects/SensEdge - Copy/android/app/.cxx/RelWithDebInfo/6p59l651/armeabi-v7a/CMakeFiles/edit_cache.dir
+C:/Projects/SensEdge - Copy/android/app/.cxx/RelWithDebInfo/6p59l651/armeabi-v7a/CMakeFiles/rebuild_cache.dir
