@@ -13,8 +13,25 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - name: Set GitHub Actor Env
+        run: echo "GITHUB_ACTOR=${{ github.actor }}" >> $GITHUB_ENV
+
+      - name: Check if teams/ exists in base branch
+        id: team_folder_check
+        run: |
+          echo "🔎 Checking if teams/ folder exists in base branch..."
+          git fetch origin ${{ github.base_ref }}
+          if git ls-tree -d origin/${{ github.base_ref }} teams/ | grep teams/; then
+            echo "TEAMS_EXISTS=true" >> $GITHUB_ENV
+            echo "✅ teams/ exists in base branch"
+          else
+            echo "TEAMS_EXISTS=false" >> $GITHUB_ENV
+            echo "⚠️ teams/ does not exist in base branch"
+          fi
+
       - name: Validate Folder Naming
         id: naming
+        if: env.TEAMS_EXISTS == 'true'
         run: |
           echo "🔍 Checking folder names..."
           INVALID_DIRS=$(find teams/ -maxdepth 1 -mindepth 1 -type d ! -name '_meta' ! -regex 'teams/[A-Za-z0-9]+_[A-Za-z0-9]+_20[0-9]{2}')
@@ -25,8 +42,7 @@ jobs:
               echo "::error:: - $dir (should match TeamName_ProjectName_Year, e.g., Team10_SensEdge_2023)"
             done
 
-            # Only block non-owner PRs
-            if [ "${{ github.actor }}" != "CSE-Alpha-2022-26" ]; then
+            if [ "$GITHUB_ACTOR" != "CSE-Alpha-2022-26" ]; then
               exit 1
             else
               echo "⚠️ Skipping folder name error for repo owner"
@@ -37,6 +53,7 @@ jobs:
 
       - name: Check Required Files
         id: files
+        if: env.TEAMS_EXISTS == 'true'
         run: |
           echo "📝 Checking required files in team folders..."
           MISSING_FILES=0
@@ -63,9 +80,8 @@ jobs:
             fi
           done
 
-          # Only block PRs for missing README, skip if owner
           if [ "$MISSING_FILES" -eq 1 ]; then
-            if [ "${{ github.actor }}" != "CSE-Alpha-2022-26" ]; then
+            if [ "$GITHUB_ACTOR" != "CSE-Alpha-2022-26" ]; then
               exit 1
             else
               echo "⚠️ Skipping missing README error for repo owner"
