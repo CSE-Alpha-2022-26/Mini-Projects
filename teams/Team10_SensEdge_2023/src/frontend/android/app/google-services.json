@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "34104149388",
+    "project_id": "sensedge-b82a0",
+    "storage_bucket": "sensedge-b82a0.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:34104149388:android:0b010a4608604394be42a9",
+        "android_client_info": {
+          "package_name": "com.example.sensedge"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCnhOyHzfW0V2s5s7AJlJnuWJsEdk4Yjl0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:34104149388:android:9a58bcccd1f5952ebe42a9",
+        "android_client_info": {
+          "package_name": "com.example.senses"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCnhOyHzfW0V2s5s7AJlJnuWJsEdk4Yjl0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

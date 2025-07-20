@@ -1,0 +1,2 @@
+C:/Projects/SensEdge/android/app/.cxx/Debug/c695am32/arm64-v8a/CMakeFiles/edit_cache.dir
+C:/Projects/SensEdge/android/app/.cxx/Debug/c695am32/arm64-v8a/CMakeFiles/rebuild_cache.dir
