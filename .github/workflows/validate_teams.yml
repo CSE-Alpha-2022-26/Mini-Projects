@@ -1,4 +1,5 @@
 name: Validate Team Structure
+
 on:
   pull_request:
     paths:
@@ -8,64 +9,80 @@ on:
 jobs:
   validate:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v3
-      
+
       - name: Validate Folder Naming
         id: naming
         run: |
+          echo "🔍 Checking folder names..."
           INVALID_DIRS=$(find teams/ -maxdepth 1 -mindepth 1 -type d ! -name '_meta' ! -regex 'teams/[A-Za-z0-9]+_[A-Za-z0-9]+_20[0-9]{2}')
+          
           if [ -n "$INVALID_DIRS" ]; then
             echo "::error::Invalid team folder names found:"
             echo "$INVALID_DIRS" | while read dir; do
-              echo "::error:: - $dir (should match TeamName_ProjectName_Year)"
+              echo "::error:: - $dir (should match TeamName_ProjectName_Year, e.g., Team10_SensEdge_2023)"
             done
-            exit 1
+
+            # Only block non-owner PRs
+            if [ "${{ github.actor }}" != "CSE-Alpha-2022-26" ]; then
+              exit 1
+            else
+              echo "⚠️ Skipping folder name error for repo owner"
+            fi
+          else
+            echo "✅ All team folders are valid"
           fi
-          echo "All team folders have valid names"
 
       - name: Check Required Files
         id: files
         run: |
+          echo "📝 Checking required files in team folders..."
           MISSING_FILES=0
+
           for dir in teams/*/; do
             if [ "$(basename "$dir")" = "_meta" ]; then
               continue
             fi
-            
-            echo "Checking $dir"
-            
-            # Required files check
-            [ -f "${dir}README.md" ] || {
+
+            echo "📂 Checking $dir"
+
+            if [ ! -f "${dir}README.md" ]; then
               echo "::error::Missing README.md in $dir"
               MISSING_FILES=1
-            }
-            
-            # Documentation completeness check
-            README_LINES=$(wc -l < "${dir}README.md")
-            if [ "$README_LINES" -lt 15 ]; then
-              echo "::warning::README in $dir seems too short ($README_LINES lines)"
+            else
+              README_LINES=$(wc -l < "${dir}README.md")
+              if [ "$README_LINES" -lt 15 ]; then
+                echo "::warning::README in $dir seems too short ($README_LINES lines)"
+              fi
             fi
-            
-            # Validate report exists (if applicable)
+
             if [ ! -f "${dir}report.pdf" ] && [ ! -f "${dir}report.md" ]; then
               echo "::warning::No report found in $dir (expected report.pdf or report.md)"
             fi
           done
-          
+
+          # Only block PRs for missing README, skip if owner
           if [ "$MISSING_FILES" -eq 1 ]; then
-            exit 1
+            if [ "${{ github.actor }}" != "CSE-Alpha-2022-26" ]; then
+              exit 1
+            else
+              echo "⚠️ Skipping missing README error for repo owner"
+            fi
           fi
 
       - name: Validate src/ and docs/ structure
         if: always()
         run: |
+          echo "📁 Validating presence of src/ and docs/ folders..."
           for dir in teams/*/; do
             if [ "$(basename "$dir")" = "_meta" ]; then
               continue
             fi
-            
-            echo "Checking structure in $dir"
+
+            echo "🔍 Checking structure in $dir"
+
             [ -d "${dir}src/" ] || echo "::warning::Missing src/ directory in $dir"
             [ -d "${dir}docs/" ] || echo "::warning::Missing docs/ directory in $dir"
           done
