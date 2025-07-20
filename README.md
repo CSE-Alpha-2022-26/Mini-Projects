@@ -124,6 +124,6 @@ All projects default to the **MIT License** unless specified otherwise. To add a
 
 --- 
 
-*Last updated: ${new Date().toISOString().split('T')[0]}*  
+![Last Updated](https://img.shields.io/github/last-commit/CSE-Alpha-2022-26/Mini-Projects?label=Last%20updated&style=flat)
 
 --- 
