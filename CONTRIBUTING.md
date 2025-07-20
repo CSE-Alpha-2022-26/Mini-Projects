@@ -132,7 +132,7 @@ pip install -r requirements.txt
 
 ## 📄 License  
 MIT Licensed. See [LICENSE](LICENSE).  
-```
+
 ## 🔍 Pull Request Template  
 ```markdown
 ## Related Issue  
