@@ -34,7 +34,7 @@ jobs:
         if: env.TEAMS_EXISTS == 'true'
         run: |
           echo "🔍 Checking folder names..."
-          INVALID_DIRS=$(find teams/ -maxdepth 1 -mindepth 1 -type d ! -name '_meta' ! -regex 'teams/Team[0-9]+_[A-Za-z0-9_]+_20[0-9]{2}')
+          INVALID_DIRS=$(find teams/ -maxdepth 1 -mindepth 1 -type d ! -name '_meta' ! -regex '\./teams/Team[0-9]+_[A-Za-z0-9_]\+_20[0-9]\{2\}')
           
           if [ -n "$INVALID_DIRS" ]; then
             echo "::error::Invalid team folder names found:"
