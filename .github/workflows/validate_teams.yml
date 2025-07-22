@@ -72,16 +72,15 @@ jobs:
             fi
           done
 
-      - name: Validate src/ and docs/ structure
-        if: always()
-        run: |
-          echo "📁 Validating presence of src/ and docs/ folders..."
-          for dir in teams/*/; do
-            if [ "$(basename "$dir")" = "_meta" ]; then
-              continue
-            fi
-
-            echo "🔍 Checking structure in $dir"
-
-            [ -d "${dir}src/" ] || echo "::warning::Missing src/ directory in $dir"
-            [ -d "${dir}docs/" ] || echo "::warning::Missing docs/ directory in $dir"
+            - name: Validate src/ and docs/ structure
+              if: always()
+              run: |
+                echo "📁 Validating presence of src/ and docs/ folders..."
+                for dir in teams/*/; do
+                  if [ "$(basename "$dir")" = "_meta" ]; then
+                    continue
+                  fi
+                  echo "🔍 Checking structure in $dir"
+                  [ -d "${dir}src/" ] || echo "::warning::Missing src/ directory in $dir"
+                  [ -d "${dir}docs/" ] || echo "::warning::Missing docs/ directory in $dir"
+                done  # ✅ Fix: close the loop
