@@ -1,0 +1,31 @@
+name: 🔄 Project Status Update
+description: Update the GitHub Project board status for a team PR
+title: "[Project Status] Team04 - MedPulse Update"
+labels: [project-update]
+body:
+  - type: input
+    id: pr
+    attributes:
+      label: PR Number
+      description: Reference the PR number (e.g., #13)
+      placeholder: "#13"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: status
+    attributes:
+      label: New Status
+      options:
+        - In Progress
+        - Reviewed
+        - Done
+      default: 0
+    validations:
+      required: true
+
+  - type: textarea
+    id: remarks
+    attributes:
+      label: Reviewer Remarks
+      description: Add any reviewer feedback or notes.
