@@ -1,31 +1,53 @@
-name: Project Status Update
-description: Update the GitHub Project board status for a team PR
-title: "[Project Status] Team04 - MedPulse Update"
-labels: [project-update]
+name: Add New Mini Project Entry
+description: Add your mini project details to the RSET CSE Project Tracker
+title: "[Mini-Project] TeamX_ProjectName_2025"
+labels: ["mini-project"]
 body:
   - type: input
-    id: pr
+    id: title
     attributes:
-      label: PR Number
-      description: Reference the PR number (e.g., #13)
-      placeholder: "#13"
+      label: Project Title
+      placeholder: Example: Smart OPD System
+    validations:
+      required: true
+
+  - type: input
+    id: repo
+    attributes:
+      label: Repository Link
+      placeholder: https://github.com/CSE-Alpha-2022-26/TeamX_SmartOPD_2025
     validations:
       required: true
 
   - type: dropdown
     id: status
     attributes:
-      label: New Status
+      label: Status
       options:
         - In Progress
-        - Reviewed
         - Done
-      default: 0
+        - Reviewed
     validations:
       required: true
 
-  - type: textarea
-    id: remarks
+  - type: input
+    id: assignees
     attributes:
-      label: Reviewer Remarks
-      description: Add any reviewer feedback or notes.
+      label: Assignees (GitHub usernames, comma-separated)
+      placeholder: user1, user2
+    validations:
+      required: true
+
+  - type: input
+    id: phase
+    attributes:
+      label: Submission Phase
+      placeholder: Phase 1 / Phase 2
+    validations:
+      required: true
+
+  - type: input
+    id: tags
+    attributes:
+      label: Tags (optional)
+      placeholder: AI, Web, HealthTech
