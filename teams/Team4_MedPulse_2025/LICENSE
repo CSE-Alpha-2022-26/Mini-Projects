@@ -1,0 +1,34 @@
+
+---
+
+### ✅ Add a `report.pdf`  
+A short project report (5–10 pages) with these sections:
+- Introduction
+- Problem Statement
+- Dataset Used
+- Approach
+- Model Architecture
+- Evaluation
+- Screenshots (if applicable)
+- Conclusion
+
+---
+
+### ✅ Add Your Code to `src/`
+Split into `backend/` and `frontend/` folders if applicable.
+
+---
+
+### ✅ Add `architecture.md` and `setup_guide.md` inside `docs/`
+
+---
+
+### ✅ Add a `LICENSE` File  
+Use this content for MIT:
+
+```txt
+MIT License
+
+Copyright (c) [Year] [Your Name]
+
+Permission is hereby granted...
